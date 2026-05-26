@@ -1,25 +1,11 @@
 import { Calendar, Clock, MapPin } from "lucide-react";
-import { motion } from "framer-motion";
 
-export default function MatchInfo() {
+export default function MatchInfo({ date = "18 DE MAIO", time = "20:00", place = "CAMPO DO MORRO" }) {
   return (
-    <motion.div
-      className="info"
-      initial={{ opacity: 0, y: 70 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 1 }}
-    >
-      <p>
-        <Calendar size={22} /> 18 DE MAIO
-      </p>
-
-      <p>
-        <Clock size={22} /> 20:00
-      </p>
-
-      <p>
-        <MapPin size={22} /> CAMPO DO MORRO
-      </p>
-    </motion.div>
+    <section className="match-info-pro">
+      <div><Calendar size={19} /><strong>{date}</strong></div>
+      <div><Clock size={19} /><strong>{time}</strong></div>
+      <div><MapPin size={19} /><strong>{place}</strong></div>
+    </section>
   );
 }
