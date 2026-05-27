@@ -1,14 +1,27 @@
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Shield, Trophy, Users, Search, Star, MapPin, Calendar, ArrowRight } from "lucide-react";
-
-const teams = [
-  { id: 1, name: "Real Norte", bairro: "Bairro Norte", since: "2018", logo: "/img/real-norte.png", color: "blue", players: 18, titles: 2, status: "Classificado" },
-  { id: 2, name: "União FC", bairro: "Morro", since: "2017", logo: "/img/uniao-fc.png", color: "red", players: 20, titles: 1, status: "Classificado" },
-  { id: 3, name: "Atlético Vila", bairro: "Vila Nova", since: "2020", logo: "", color: "yellow", players: 16, titles: 0, status: "Em disputa" },
-  { id: 4, name: "Morro City", bairro: "Morro Alto", since: "2019", logo: "", color: "green", players: 19, titles: 1, status: "Em disputa" },
-];
+import { getData, subscribeData } from "../data/storage";
 
 export default function TeamsPage() {
+  const [teams, setTeams] = useState([]);
+  const [players, setPlayers] = useState([]);
+  const [search, setSearch] = useState("");
+
+  function load() {
+    setTeams(getData("teams"));
+    setPlayers(getData("players"));
+  }
+
+  useEffect(() => {
+    load();
+    return subscribeData(load);
+  }, []);
+
+  const filteredTeams = teams.filter((team) => team.name?.toLowerCase().includes(search.toLowerCase()));
+
+  const totalTitles = useMemo(() => teams.reduce((total, team) => total + Number(team.titles || 0), 0), [teams]);
+
   return (
     <main className="teams-page">
       <div className="page-bg"></div>
@@ -16,32 +29,50 @@ export default function TeamsPage() {
       <section className="page-hero">
         <span className="badge"><Shield size={18} /> Clubes participantes</span>
         <h1>Times</h1>
-        <p>Clubes cadastrados, escudos, bairro, elenco e títulos.</p>
+        <p>Clubes cadastrados pelo painel administrativo, com escudos salvos no Cloudinary.</p>
 
-        <div className="search-box"><Search size={19} /><input placeholder="Pesquisar time..." /></div>
+        <div className="search-box">
+          <Search size={19} />
+          <input placeholder="Pesquisar time..." value={search} onChange={(e) => setSearch(e.target.value)} />
+        </div>
       </section>
 
       <section className="quick-stats">
-        <div><Trophy /><strong>4</strong><span>Times</span></div>
-        <div><Users /><strong>73</strong><span>Atletas</span></div>
-        <div><Star /><strong>4</strong><span>Títulos</span></div>
+        <div><Trophy /><strong>{teams.length}</strong><span>Times</span></div>
+        <div><Users /><strong>{players.length}</strong><span>Atletas</span></div>
+        <div><Star /><strong>{totalTitles}</strong><span>Títulos</span></div>
       </section>
 
       <section className="teams-grid-premium">
-        {teams.map((team) => (
-          <article key={team.id} className={`team-premium-card ${team.color}`}>
-            <span className="team-status">{team.status}</span>
-            <div className="team-logo-area">{team.logo ? <img src={team.logo} alt={team.name} /> : <Shield size={56} />}</div>
-            <h2>{team.name}</h2>
-            <p className="team-meta"><MapPin size={15} /> {team.bairro}</p>
-            <p className="team-meta"><Calendar size={15} /> Desde {team.since}</p>
-            <div className="team-numbers">
-              <div><strong>{team.players}</strong><span>Jogadores</span></div>
-              <div><strong>{team.titles}</strong><span>Títulos</span></div>
-            </div>
-            <Link to={`/times/${team.id}`} className="team-details-btn">Ver detalhes <ArrowRight size={17} /></Link>
-          </article>
-        ))}
+        {filteredTeams.length === 0 ? (
+          <p className="empty-text">Nenhum time cadastrado ainda.</p>
+        ) : (
+          filteredTeams.map((team) => {
+            const teamPlayers = players.filter((player) => String(player.teamId) === String(team.id));
+            return (
+              <article key={team.id} className="team-premium-card">
+                <span className="team-status">{team.status || "Cadastrado"}</span>
+
+                <div className="team-logo-area">
+                  {team.logo ? <img src={team.logo} alt={team.name} /> : <Shield size={56} />}
+                </div>
+
+                <h2>{team.name}</h2>
+                <p className="team-meta"><MapPin size={15} /> {team.city || team.bairro || "Sem bairro"}</p>
+                <p className="team-meta"><Calendar size={15} /> Desde {team.year || team.since || "----"}</p>
+
+                <div className="team-numbers">
+                  <div><strong>{teamPlayers.length}</strong><span>Jogadores</span></div>
+                  <div><strong>{team.titles || 0}</strong><span>Títulos</span></div>
+                </div>
+
+                <Link to={`/times/${team.id}`} className="team-details-btn">
+                  Ver detalhes <ArrowRight size={17} />
+                </Link>
+              </article>
+            );
+          })
+        )}
       </section>
     </main>
   );
