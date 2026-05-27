@@ -1,19 +1,18 @@
 import { useEffect, useMemo, useState } from "react";
 import { Trophy, Medal, Shield, TrendingUp, Crown } from "lucide-react";
-import { getData, subscribeData } from "../data/storage";
+import { subscribeData } from "../data/firebaseStorage";
 
 export default function ClassificationPage() {
   const [teams, setTeams] = useState([]);
   const [matches, setMatches] = useState([]);
-
-  function load() {
-    setTeams(getData("teams"));
-    setMatches(getData("matches"));
-  }
-
   useEffect(() => {
-    load();
-    return subscribeData(load);
+    const unsubTeams = subscribeData("teams", setTeams);
+    const unsubMatches = subscribeData("matches", setMatches);
+
+    return () => {
+      unsubTeams();
+      unsubMatches();
+    };
   }, []);
 
   const classification = useMemo(() => {

@@ -1,17 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { Target, Trophy, Medal, Crown, Flame, TrendingUp } from "lucide-react";
-import { getData, subscribeData } from "../data/storage";
+import { subscribeData } from "../data/firebaseStorage";
 
 export default function TopScorersPage() {
   const [scorers, setScorers] = useState([]);
-
-  function load() {
-    setScorers(getData("scorers"));
-  }
-
   useEffect(() => {
-    load();
-    return subscribeData(load);
+    const unsubscribe = subscribeData("scorers", setScorers);
+    return () => unsubscribe();
   }, []);
 
   const ranking = useMemo(() => [...scorers].sort((a, b) => Number(b.goals) - Number(a.goals)), [scorers]);

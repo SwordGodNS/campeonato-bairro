@@ -13,20 +13,20 @@ import {
   } from "lucide-react";
   import { Link } from "react-router-dom";
   import { useEffect, useMemo, useState } from "react";
-  import { getData, subscribeData } from "../data/storage";
+  import { subscribeData } from "../data/firebaseStorage";
   
   export default function MatchPage() {
     const [matches, setMatches] = useState([]);
     const [teams, setTeams] = useState([]);
-  
-    function loadData() {
-      setMatches(getData("matches") || []);
-      setTeams(getData("teams") || []);
-    }
-  
+
     useEffect(() => {
-      loadData();
-      return subscribeData(loadData);
+      const unsubMatches = subscribeData("matches", setMatches);
+      const unsubTeams = subscribeData("teams", setTeams);
+
+      return () => {
+        unsubMatches();
+        unsubTeams();
+      };
     }, []);
   
     const match = matches[0] || null;

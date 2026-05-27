@@ -1,21 +1,20 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Shield, Users, Trophy, Calendar, ArrowLeft } from "lucide-react";
-import { getData, subscribeData } from "../data/storage";
+import { subscribeData } from "../data/firebaseStorage";
 
 export default function TeamDetailsPage() {
   const { id } = useParams();
   const [teams, setTeams] = useState([]);
   const [players, setPlayers] = useState([]);
-
-  function load() {
-    setTeams(getData("teams"));
-    setPlayers(getData("players"));
-  }
-
   useEffect(() => {
-    load();
-    return subscribeData(load);
+    const unsubTeams = subscribeData("teams", setTeams);
+    const unsubPlayers = subscribeData("players", setPlayers);
+
+    return () => {
+      unsubTeams();
+      unsubPlayers();
+    };
   }, []);
 
   const team = teams.find((item) => String(item.id) === String(id));

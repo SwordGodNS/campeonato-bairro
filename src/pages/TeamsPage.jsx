@@ -1,21 +1,20 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Shield, Trophy, Users, Search, Star, MapPin, Calendar, ArrowRight } from "lucide-react";
-import { getData, subscribeData } from "../data/storage";
+import { subscribeData } from "../data/firebaseStorage";
 
 export default function TeamsPage() {
   const [teams, setTeams] = useState([]);
   const [players, setPlayers] = useState([]);
   const [search, setSearch] = useState("");
-
-  function load() {
-    setTeams(getData("teams"));
-    setPlayers(getData("players"));
-  }
-
   useEffect(() => {
-    load();
-    return subscribeData(load);
+    const unsubTeams = subscribeData("teams", setTeams);
+    const unsubPlayers = subscribeData("players", setPlayers);
+
+    return () => {
+      unsubTeams();
+      unsubPlayers();
+    };
   }, []);
 
   const filteredTeams = teams.filter((team) => team.name?.toLowerCase().includes(search.toLowerCase()));

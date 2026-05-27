@@ -1,17 +1,12 @@
 import { useEffect, useState } from "react";
 import { UserCheck } from "lucide-react";
-import { getData, subscribeData } from "../data/storage";
+import { subscribeData } from "../data/firebaseStorage";
 
 export default function RefereesPage() {
   const [referees, setReferees] = useState([]);
-
-  function load() {
-    setReferees(getData("referees"));
-  }
-
   useEffect(() => {
-    load();
-    return subscribeData(load);
+    const unsubscribe = subscribeData("referees", setReferees);
+    return () => unsubscribe();
   }, []);
 
   return (

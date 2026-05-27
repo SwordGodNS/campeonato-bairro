@@ -1,17 +1,12 @@
 import { useEffect, useState } from "react";
 import { Handshake } from "lucide-react";
-import { getData, subscribeData } from "../data/storage";
+import { subscribeData } from "../data/firebaseStorage";
 
 export default function SponsorsPage() {
   const [sponsors, setSponsors] = useState([]);
-
-  function load() {
-    setSponsors(getData("sponsors"));
-  }
-
   useEffect(() => {
-    load();
-    return subscribeData(load);
+    const unsubscribe = subscribeData("sponsors", setSponsors);
+    return () => unsubscribe();
   }, []);
 
   return (

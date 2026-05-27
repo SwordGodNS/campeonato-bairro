@@ -1,18 +1,13 @@
 import { useEffect, useState } from "react";
 import { Search, Shield, Users } from "lucide-react";
-import { getData, subscribeData } from "../data/storage";
+import { subscribeData } from "../data/firebaseStorage";
 
 export default function PlayersPage() {
   const [players, setPlayers] = useState([]);
   const [search, setSearch] = useState("");
-
-  function load() {
-    setPlayers(getData("players"));
-  }
-
   useEffect(() => {
-    load();
-    return subscribeData(load);
+    const unsubscribe = subscribeData("players", setPlayers);
+    return () => unsubscribe();
   }, []);
 
   const filtered = players.filter((player) =>

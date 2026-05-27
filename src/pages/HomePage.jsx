@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { Trophy, Flame, Shield, CalendarDays, Clock, MapPin, Users, BarChart3, Target, Star } from "lucide-react";
-import { getData, subscribeData } from "../data/storage";
+import { Trophy, Shield, CalendarDays, Clock, MapPin, Users, BarChart3, Target, Star } from "lucide-react";
+import { subscribeData } from "../data/firebaseStorage";
 
 export default function HomePage() {
   const [teams, setTeams] = useState([]);
@@ -9,16 +9,18 @@ export default function HomePage() {
   const [matches, setMatches] = useState([]);
   const [scorers, setScorers] = useState([]);
 
-  function load() {
-    setTeams(getData("teams"));
-    setPlayers(getData("players"));
-    setMatches(getData("matches"));
-    setScorers(getData("scorers"));
-  }
-
   useEffect(() => {
-    load();
-    return subscribeData(load);
+    const unsubTeams = subscribeData("teams", setTeams);
+    const unsubPlayers = subscribeData("players", setPlayers);
+    const unsubMatches = subscribeData("matches", setMatches);
+    const unsubScorers = subscribeData("scorers", setScorers);
+
+    return () => {
+      unsubTeams();
+      unsubPlayers();
+      unsubMatches();
+      unsubScorers();
+    };
   }, []);
 
   const nextMatch = matches[0];
