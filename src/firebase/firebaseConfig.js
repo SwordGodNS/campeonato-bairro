@@ -1,19 +1,17 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
-  apiKey: "COLE_SUA_API_KEY",
-  authDomain: "COLE_SEU_AUTH_DOMAIN",
-  projectId: "COLE_SEU_PROJECT_ID",
-  storageBucket: "COLE_SEU_STORAGE_BUCKET",
-  messagingSenderId: "COLE_SEU_MESSAGING_SENDER_ID",
-  appId: "COLE_SEU_APP_ID",
+  apiKey: "AIzaSyCbKFdJwA-Hz6QIi_D04kB_HCUF4LY",
+  authDomain: "campeonato-bairro-f1b14.firebaseapp.com",
+  databaseURL: "https://campeonato-bairro-f1b14-default-rtdb.firebaseio.com",
+  projectId: "campeonato-bairro-f1b14",
+  storageBucket: "campeonato-bairro-f1b14.firebasestorage.app",
+  messagingSenderId: "107353619301",
+  appId: "1:107353619301:web:ae1febb3a5068248167fc",
+  measurementId: "G-7SJKYVL947",
 };
 
 const app = initializeApp(firebaseConfig);
 
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export const storage = getStorage(app);
+export const db = getDatabase(app);

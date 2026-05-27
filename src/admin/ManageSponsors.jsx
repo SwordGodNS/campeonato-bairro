@@ -1,21 +1,17 @@
 import { useEffect, useState } from "react";
 import UploadImage from "../components/UploadImage";
-import { getData, saveData, subscribeData } from "../data/storage";
+import { saveData, subscribeData } from "../data/firebaseStorage";
 
 export default function ManageSponsors() {
   const [sponsors, setSponsors] = useState([]);
   const [form, setForm] = useState({ name: "", link: "", logo: "" });
 
-  function load() {
-    setSponsors(getData("sponsors"));
-  }
-
   useEffect(() => {
-    load();
-    return subscribeData(load);
+    const unsubscribe = subscribeData("sponsors", setSponsors);
+    return () => unsubscribe();
   }, []);
 
-  function saveSponsor(e) {
+  async function saveSponsor(e) {
     e.preventDefault();
 
     if (!form.name.trim()) {
@@ -23,18 +19,13 @@ export default function ManageSponsors() {
       return;
     }
 
-    const updatedSponsors = [...sponsors, { id: crypto.randomUUID(), ...form }];
-    setSponsors(updatedSponsors);
-    saveData("sponsors", updatedSponsors);
+    await saveData("sponsors", [...sponsors, { id: crypto.randomUUID(), ...form }]);
     setForm({ name: "", link: "", logo: "" });
-
     alert("Patrocinador salvo!");
   }
 
-  function deleteSponsor(id) {
-    const updatedSponsors = sponsors.filter((item) => item.id !== id);
-    setSponsors(updatedSponsors);
-    saveData("sponsors", updatedSponsors);
+  async function deleteSponsor(id) {
+    await saveData("sponsors", sponsors.filter((item) => item.id !== id));
   }
 
   return (
@@ -59,12 +50,10 @@ export default function ManageSponsors() {
           sponsors.map((sponsor) => (
             <div className="registered-item" key={sponsor.id}>
               {sponsor.logo && <img src={sponsor.logo} alt={sponsor.name} className="registered-logo" />}
-
               <div>
                 <strong>{sponsor.name}</strong>
                 <span>{sponsor.link || "Sem link"}</span>
               </div>
-
               <button type="button" onClick={() => deleteSponsor(sponsor.id)}>Remover</button>
             </div>
           ))

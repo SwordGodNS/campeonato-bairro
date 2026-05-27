@@ -1,21 +1,17 @@
 import { useEffect, useState } from "react";
 import UploadImage from "../components/UploadImage";
-import { getData, saveData, subscribeData } from "../data/storage";
+import { saveData, subscribeData } from "../data/firebaseStorage";
 
 export default function ManageReferees() {
   const [referees, setReferees] = useState([]);
   const [form, setForm] = useState({ name: "", role: "", photo: "" });
 
-  function load() {
-    setReferees(getData("referees"));
-  }
-
   useEffect(() => {
-    load();
-    return subscribeData(load);
+    const unsubscribe = subscribeData("referees", setReferees);
+    return () => unsubscribe();
   }, []);
 
-  function saveReferee(e) {
+  async function saveReferee(e) {
     e.preventDefault();
 
     if (!form.name.trim()) {
@@ -23,18 +19,13 @@ export default function ManageReferees() {
       return;
     }
 
-    const updatedReferees = [...referees, { id: crypto.randomUUID(), ...form }];
-    setReferees(updatedReferees);
-    saveData("referees", updatedReferees);
+    await saveData("referees", [...referees, { id: crypto.randomUUID(), ...form }]);
     setForm({ name: "", role: "", photo: "" });
-
     alert("Árbitro salvo!");
   }
 
-  function deleteReferee(id) {
-    const updatedReferees = referees.filter((item) => item.id !== id);
-    setReferees(updatedReferees);
-    saveData("referees", updatedReferees);
+  async function deleteReferee(id) {
+    await saveData("referees", referees.filter((item) => item.id !== id));
   }
 
   return (
@@ -59,12 +50,10 @@ export default function ManageReferees() {
           referees.map((referee) => (
             <div className="registered-item" key={referee.id}>
               {referee.photo && <img src={referee.photo} alt={referee.name} className="registered-logo" />}
-
               <div>
                 <strong>{referee.name}</strong>
                 <span>{referee.role || "Sem função"}</span>
               </div>
-
               <button type="button" onClick={() => deleteReferee(referee.id)}>Remover</button>
             </div>
           ))

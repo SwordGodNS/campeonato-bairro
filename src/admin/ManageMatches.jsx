@@ -1,32 +1,25 @@
 import { useEffect, useState } from "react";
-import { getData, saveData, subscribeData } from "../data/storage";
+import { saveData, subscribeData } from "../data/firebaseStorage";
 
 export default function ManageMatches() {
   const [teams, setTeams] = useState([]);
   const [matches, setMatches] = useState([]);
 
   const [form, setForm] = useState({
-    phase: "",
-    teamAId: "",
-    teamBId: "",
-    date: "",
-    time: "",
-    place: "",
-    scoreA: "",
-    scoreB: "",
+    phase: "", teamAId: "", teamBId: "", date: "", time: "", place: "", scoreA: "", scoreB: "",
   });
 
-  function load() {
-    setTeams(getData("teams"));
-    setMatches(getData("matches"));
-  }
-
   useEffect(() => {
-    load();
-    return subscribeData(load);
+    const unsubTeams = subscribeData("teams", setTeams);
+    const unsubMatches = subscribeData("matches", setMatches);
+
+    return () => {
+      unsubTeams();
+      unsubMatches();
+    };
   }, []);
 
-  function saveMatch(e) {
+  async function saveMatch(e) {
     e.preventDefault();
 
     const teamA = teams.find((team) => String(team.id) === String(form.teamAId));
@@ -46,19 +39,13 @@ export default function ManageMatches() {
       teamBLogo: teamB.logo,
     };
 
-    const updatedMatches = [...matches, newMatch];
-    setMatches(updatedMatches);
-    saveData("matches", updatedMatches);
-
+    await saveData("matches", [...matches, newMatch]);
     setForm({ phase: "", teamAId: "", teamBId: "", date: "", time: "", place: "", scoreA: "", scoreB: "" });
-
     alert("Jogo salvo com sucesso!");
   }
 
-  function deleteMatch(id) {
-    const updatedMatches = matches.filter((match) => match.id !== id);
-    setMatches(updatedMatches);
-    saveData("matches", updatedMatches);
+  async function deleteMatch(id) {
+    await saveData("matches", matches.filter((match) => match.id !== id));
   }
 
   return (
@@ -100,7 +87,6 @@ export default function ManageMatches() {
                 <strong>{match.teamAName} x {match.teamBName}</strong>
                 <span>{match.phase} • {match.date} às {match.time} • {match.place}</span>
               </div>
-
               <button type="button" onClick={() => deleteMatch(match.id)}>Remover</button>
             </div>
           ))

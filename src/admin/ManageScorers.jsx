@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react";
-import { getData, saveData, subscribeData } from "../data/storage";
+import { saveData, subscribeData } from "../data/firebaseStorage";
 
 export default function ManageScorers() {
   const [players, setPlayers] = useState([]);
   const [scorers, setScorers] = useState([]);
   const [form, setForm] = useState({ playerId: "", goals: "" });
 
-  function load() {
-    setPlayers(getData("players"));
-    setScorers(getData("scorers"));
-  }
-
   useEffect(() => {
-    load();
-    return subscribeData(load);
+    const unsubPlayers = subscribeData("players", setPlayers);
+    const unsubScorers = subscribeData("scorers", setScorers);
+
+    return () => {
+      unsubPlayers();
+      unsubScorers();
+    };
   }, []);
 
-  function saveScorer(e) {
+  async function saveScorer(e) {
     e.preventDefault();
 
     const player = players.find((item) => String(item.id) === String(form.playerId));
@@ -41,17 +41,13 @@ export default function ManageScorers() {
       newScorer,
     ].sort((a, b) => b.goals - a.goals);
 
-    setScorers(updatedScorers);
-    saveData("scorers", updatedScorers);
+    await saveData("scorers", updatedScorers);
     setForm({ playerId: "", goals: "" });
-
     alert("Artilharia atualizada!");
   }
 
-  function deleteScorer(id) {
-    const updatedScorers = scorers.filter((item) => item.id !== id);
-    setScorers(updatedScorers);
-    saveData("scorers", updatedScorers);
+  async function deleteScorer(id) {
+    await saveData("scorers", scorers.filter((item) => item.id !== id));
   }
 
   return (
@@ -81,12 +77,10 @@ export default function ManageScorers() {
           scorers.map((scorer, index) => (
             <div className="registered-item" key={scorer.id}>
               {scorer.photo && <img src={scorer.photo} alt={scorer.name} className="registered-logo" />}
-
               <div>
                 <strong>{index + 1}º {scorer.name}</strong>
                 <span>{scorer.teamName} • {scorer.goals} gols</span>
               </div>
-
               <button type="button" onClick={() => deleteScorer(scorer.id)}>Remover</button>
             </div>
           ))
