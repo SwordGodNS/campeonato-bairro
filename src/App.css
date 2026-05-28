@@ -213,6 +213,7 @@ button {
   padding: 0 12px;
   border-radius: 14px;
   display: inline-flex;
+  min-width: fit-content;
   align-items: center;
   justify-content: center;
   gap: 7px;
@@ -250,6 +251,7 @@ button {
 
 .login-btn {
   background: rgba(56,189,248,.12) !important;
+  min-width: 82px;
   border: 1px solid rgba(56,189,248,.45) !important;
   color: #dff7ff !important;
 }
@@ -1334,15 +1336,6 @@ button {
 
   .scorer-player h3 {
     font-size: 13px;
-  }
-}
-
-/* ================= REDUZ ANIMAÇÃO SE O CELULAR FOR FRACO ================= */
-
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation: none !important;
-    transition: none !important;
   }
 }
 
@@ -4317,3 +4310,1289 @@ button {
   }
 }
 
+.painel-fixed {
+  position: relative;
+  z-index: 3;
+  flex-shrink: 0;
+}
+
+.header {
+  overflow: visible;
+}
+
+.header-nav {
+  flex: 1;
+  justify-content: flex-end;
+  gap: 6px;
+  min-width: 0;
+}
+
+.header-nav a {
+  padding: 0 9px;
+  font-size: 10px;
+}
+
+.header-nav a span {
+  display: inline-block;
+}
+
+.login-btn {
+  min-width: 86px !important;
+  padding: 0 13px !important;
+  background: rgba(56, 189, 248, 0.18) !important;
+  border: 1px solid rgba(56, 189, 248, 0.55) !important;
+  color: #dff7ff !important;
+  flex-shrink: 0;
+}
+
+
+.premium-home {
+  padding-top: 0 !important;
+}
+
+.mobile-hero {
+  padding-top: 145px !important;
+  min-height: auto !important;
+}
+
+.quick-stats,
+.next-battle-arena,
+.home-sections,
+.sponsors-marquee-section {
+  position: relative;
+  z-index: 2;
+}
+
+
+/* =========================================================
+   AJUSTES FINAIS - HEADER, HOME E PATROCINADORES
+   ========================================================= */
+
+.header {
+  position: fixed;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1180px, calc(100% - 24px));
+  z-index: 9999;
+}
+
+.premium-home {
+  padding-top: 0 !important;
+}
+
+.mobile-hero {
+  padding-top: 145px !important;
+  min-height: auto !important;
+}
+
+.mobile-hero h1 {
+  max-width: 720px;
+  font-size: clamp(38px, 5vw, 76px);
+  line-height: 1.05;
+}
+
+.quick-stats,
+.next-battle-arena,
+.home-sections,
+.sponsors-marquee-section {
+  position: relative;
+  z-index: 2;
+}
+
+.header-nav {
+  flex: 1;
+  justify-content: flex-end;
+  gap: 6px;
+  min-width: 0;
+}
+
+.header-nav a {
+  min-width: fit-content;
+  padding: 0 9px;
+  font-size: 10px;
+}
+
+.login-btn {
+  min-width: 86px !important;
+  padding: 0 13px !important;
+  background: rgba(56, 189, 248, 0.18) !important;
+  border: 1px solid rgba(56, 189, 248, 0.55) !important;
+  color: #dff7ff !important;
+  flex-shrink: 0;
+}
+
+.sponsors-marquee-section {
+  width: min(1100px, 92%);
+  margin: 28px auto;
+  padding: 18px;
+  border-radius: 24px;
+  background: rgba(2, 6, 23, 0.75);
+  border: 1px solid rgba(250, 204, 21, 0.22);
+  overflow: hidden;
+}
+
+.sponsors-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #facc15;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.sponsors-marquee {
+  overflow: hidden;
+  width: 100%;
+}
+
+.sponsors-track {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  animation: sponsorsMove 22s linear infinite;
+}
+
+.sponsor-moving-card {
+  min-width: 190px;
+  height: 105px;
+  padding: 14px;
+  border-radius: 20px;
+  background: linear-gradient(145deg, rgba(15,23,42,.95), rgba(30,41,59,.85));
+  border: 1px solid rgba(255,255,255,.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.sponsor-moving-logo {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  background: rgba(250,204,21,.12);
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.sponsor-moving-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sponsor-moving-card strong {
+  color: white;
+  font-size: 13px;
+  text-align: center;
+}
+
+@keyframes sponsorsMove {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-hero {
+    padding-top: 170px !important;
+  }
+
+  .header-nav {
+    justify-content: flex-start;
+    overflow-x: auto;
+  }
+
+  .mobile-hero h1 {
+    font-size: 34px;
+  }
+}
+
+/* ===== PATROCINADORES / LED DE ESTÁDIO - ORGANIZADO E FUNCIONANDO ===== */
+
+.home-led-sponsors,
+.stadium-sponsors {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+  margin-top: 30px !important;
+  margin-bottom: 28px !important;
+  padding: 18px 0 !important;
+  overflow: hidden !important;
+  position: relative !important;
+  z-index: 20 !important;
+  border-radius: 0 !important;
+  border-top: 1px solid rgba(250, 204, 21, 0.55) !important;
+  border-bottom: 1px solid rgba(250, 204, 21, 0.55) !important;
+  background:
+    radial-gradient(circle at top, rgba(250,204,21,.13), transparent 38%),
+    linear-gradient(90deg, rgba(2,6,23,.98), rgba(15,23,42,.96), rgba(2,6,23,.98)) !important;
+  box-shadow:
+    inset 0 0 38px rgba(250,204,21,.08),
+    0 0 34px rgba(250,204,21,.12) !important;
+}
+
+.home-led-title,
+.stadium-sponsors-title {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding-left: 36px !important;
+  margin-bottom: 14px !important;
+  color: #facc15 !important;
+  font-size: 15px !important;
+  font-weight: 1000 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1.5px !important;
+}
+
+.home-led-window,
+.stadium-sponsors-marquee {
+  width: 100vw !important;
+  overflow: hidden !important;
+  position: relative !important;
+  mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+}
+
+.home-led-track,
+.stadium-sponsors-track {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 18px !important;
+  width: max-content !important;
+  min-width: max-content !important;
+  will-change: transform !important;
+  animation: sponsorsInfiniteRun 20s linear infinite !important;
+}
+
+.home-led-card,
+.stadium-sponsor-card {
+  flex: 0 0 260px !important;
+  width: 260px !important;
+  min-width: 260px !important;
+  height: 84px !important;
+  padding: 0 18px !important;
+  border-radius: 14px !important;
+  background: linear-gradient(180deg, rgba(15,23,42,.98), rgba(30,41,59,.95)) !important;
+  border: 1px solid rgba(255,255,255,.16) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 14px !important;
+  flex-shrink: 0 !important;
+  color: white !important;
+}
+
+.home-led-logo,
+.stadium-sponsor-logo {
+  width: 56px !important;
+  height: 56px !important;
+  min-width: 56px !important;
+  border-radius: 14px !important;
+  background: rgba(250,204,21,.12) !important;
+  display: grid !important;
+  place-items: center !important;
+  overflow: hidden !important;
+  color: #facc15 !important;
+}
+
+.home-led-logo img,
+.stadium-sponsor-logo img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+}
+
+.home-led-card strong,
+.stadium-sponsor-card strong {
+  color: white !important;
+  font-size: 13px !important;
+  font-weight: 1000 !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+}
+
+@keyframes sponsorsInfiniteRun {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+@media (max-width: 768px) {
+  .home-led-title,
+  .stadium-sponsors-title {
+    padding-left: 18px !important;
+    font-size: 13px !important;
+  }
+
+  .home-led-card,
+  .stadium-sponsor-card {
+    flex-basis: 220px !important;
+    width: 220px !important;
+    min-width: 220px !important;
+    height: 76px !important;
+  }
+}
+
+/* ===== PÁGINA PATROCINADORES PREMIUM ===== */
+
+.sponsors-full-page {
+  overflow-x: hidden !important;
+}
+
+.sponsors-premium-hero {
+  position: relative;
+  z-index: 2;
+  max-width: 1050px;
+  margin: 0 auto 30px;
+  padding: 38px 22px;
+  border-radius: 30px;
+  text-align: center;
+  background:
+    radial-gradient(circle at top, rgba(250,204,21,.22), transparent 42%),
+    rgba(15,23,42,.82);
+  border: 1px solid rgba(250,204,21,.35);
+  box-shadow: 0 0 50px rgba(250,204,21,.14);
+  overflow: hidden;
+}
+
+.sponsors-premium-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #facc15;
+  font-weight: 1000;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 16px;
+}
+
+.sponsors-premium-hero h1 {
+  font-size: clamp(38px, 7vw, 78px);
+  text-transform: uppercase;
+  line-height: .95;
+  text-shadow: 0 0 28px rgba(250,204,21,.35);
+}
+
+.sponsors-premium-hero p {
+  max-width: 760px;
+  margin: 18px auto 0;
+  color: #dbeafe;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+/* faixa animada */
+.premium-led {
+  width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-top: 26px !important;
+  margin-bottom: 36px !important;
+  padding: 18px 0 !important;
+  border-top: 1px solid rgba(250,204,21,.55) !important;
+  border-bottom: 1px solid rgba(250,204,21,.55) !important;
+  background: rgba(2,6,23,.94) !important;
+  overflow: hidden !important;
+}
+
+.sponsor-led-title {
+  position: relative;
+  z-index: 2;
+  padding-left: 38px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #facc15;
+  font-weight: 1000;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.sponsor-led-window {
+  width: 100vw;
+  overflow: hidden;
+}
+
+.sponsor-led-track {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 18px;
+  width: max-content;
+  animation: sponsorPremiumRun 14s linear infinite;
+  will-change: transform;
+}
+
+.sponsor-led-card {
+  width: 260px;
+  min-width: 260px;
+  height: 86px;
+  padding: 0 18px;
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at top, rgba(250,204,21,.14), transparent 45%),
+    linear-gradient(180deg, rgba(15,23,42,.98), rgba(2,6,23,.98));
+  border: 1px solid rgba(250,204,21,.32);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.sponsor-led-logo {
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  border-radius: 15px;
+  background: rgba(250,204,21,.12);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: #facc15;
+}
+
+.sponsor-led-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sponsor-led-card strong {
+  color: white;
+  font-size: 13px;
+  font-weight: 1000;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@keyframes sponsorPremiumRun {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* cards destaque */
+.sponsors-showcase {
+  position: relative;
+  z-index: 2;
+  max-width: 1150px;
+  margin: 0 auto;
+}
+
+.sponsors-section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #facc15;
+  margin-bottom: 18px;
+}
+
+.sponsors-section-title h2 {
+  text-transform: uppercase;
+  font-size: 28px;
+}
+
+.sponsors-premium-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px;
+}
+
+.sponsor-premium-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 245px;
+  padding: 24px;
+  border-radius: 26px;
+  background: rgba(15,23,42,.86);
+  border: 1px solid rgba(255,255,255,.14);
+  text-align: center;
+  transition: .35s ease;
+}
+
+.sponsor-premium-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(250,204,21,.7);
+  box-shadow: 0 0 35px rgba(250,204,21,.18);
+}
+
+.sponsor-card-glow {
+  position: absolute;
+  inset: -60px;
+  background: radial-gradient(circle, rgba(250,204,21,.18), transparent 45%);
+  opacity: .8;
+  animation: sponsorGlowMove 5s ease-in-out infinite;
+}
+
+@keyframes sponsorGlowMove {
+  0%, 100% {
+    transform: translate(-20px, -20px);
+  }
+
+  50% {
+    transform: translate(20px, 20px);
+  }
+}
+
+.sponsor-premium-logo {
+  position: relative;
+  z-index: 2;
+  width: 105px;
+  height: 105px;
+  margin: 0 auto 16px;
+  border-radius: 24px;
+  background: rgba(250,204,21,.12);
+  border: 1px solid rgba(250,204,21,.35);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: #facc15;
+}
+
+.sponsor-premium-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sponsor-premium-card h3 {
+  position: relative;
+  z-index: 2;
+  color: white;
+  font-size: 22px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.sponsor-premium-card a {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  padding: 12px 16px;
+  border-radius: 999px;
+  background: #facc15;
+  color: #111827;
+  font-weight: 1000;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.sponsors-empty-premium {
+  position: relative;
+  z-index: 2;
+  max-width: 650px;
+  margin: 30px auto;
+  padding: 34px;
+  border-radius: 28px;
+  text-align: center;
+  background: rgba(15,23,42,.86);
+  border: 1px solid rgba(250,204,21,.35);
+}
+
+.sponsors-empty-premium svg {
+  color: #facc15;
+  margin-bottom: 12px;
+}
+
+/* =========================================================
+   FOCO TOTAL: PÁGINA PATROCINADORES PREMIUM FUNCIONANDO
+   Colei no final para sobrescrever qualquer CSS antigo.
+   ========================================================= */
+
+.sponsors-full-page,
+.page.sponsors-full-page {
+  overflow-x: hidden !important;
+  min-height: 100vh !important;
+  position: relative !important;
+  padding-top: 120px !important;
+}
+
+.sponsors-premium-hero {
+  position: relative !important;
+  z-index: 5 !important;
+  max-width: 1100px !important;
+  margin: 0 auto 34px !important;
+  padding: clamp(28px, 5vw, 54px) 22px !important;
+  border-radius: 34px !important;
+  text-align: center !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(250,204,21,.32), transparent 38%),
+    radial-gradient(circle at 10% 20%, rgba(56,189,248,.18), transparent 35%),
+    linear-gradient(135deg, rgba(15,23,42,.92), rgba(2,6,23,.94)) !important;
+  border: 1px solid rgba(250,204,21,.42) !important;
+  box-shadow:
+    0 0 55px rgba(250,204,21,.18),
+    inset 0 0 30px rgba(255,255,255,.04) !important;
+  overflow: hidden !important;
+  animation: sponsorHeroEnter .8s ease both, sponsorHeroFloat 5s ease-in-out infinite !important;
+}
+
+.sponsors-premium-hero::before {
+  content: "" !important;
+  position: absolute !important;
+  top: -80% !important;
+  left: -40% !important;
+  width: 40% !important;
+  height: 260% !important;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.28), transparent) !important;
+  transform: rotate(22deg) !important;
+  animation: sponsorHeroShine 4.5s linear infinite !important;
+}
+
+.sponsors-premium-badge {
+  position: relative !important;
+  z-index: 2 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+  padding: 11px 18px !important;
+  border-radius: 999px !important;
+  color: #facc15 !important;
+  background: rgba(250,204,21,.13) !important;
+  border: 1px solid rgba(250,204,21,.45) !important;
+  font-weight: 1000 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1.4px !important;
+  animation: sponsorBadgePulse 2.4s ease-in-out infinite !important;
+}
+
+.sponsors-premium-hero h1 {
+  position: relative !important;
+  z-index: 2 !important;
+  margin-top: 16px !important;
+  font-size: clamp(42px, 8vw, 92px) !important;
+  line-height: .9 !important;
+  font-weight: 1000 !important;
+  text-transform: uppercase !important;
+  letter-spacing: -2px !important;
+  color: #fff !important;
+  text-shadow:
+    0 0 18px rgba(255,255,255,.28),
+    0 0 42px rgba(250,204,21,.42) !important;
+  animation: sponsorTitleGlow 2.8s ease-in-out infinite !important;
+}
+
+.sponsors-premium-hero p {
+  position: relative !important;
+  z-index: 2 !important;
+  max-width: 760px !important;
+  margin: 18px auto 0 !important;
+  color: #dbeafe !important;
+  font-size: clamp(15px, 2vw, 19px) !important;
+  line-height: 1.55 !important;
+}
+
+/* PLACA LED DE ESTÁDIO */
+.sponsor-led-board,
+.premium-led {
+  position: relative !important;
+  z-index: 8 !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+  margin-top: 26px !important;
+  margin-bottom: 42px !important;
+  padding: 18px 0 22px !important;
+  overflow: hidden !important;
+  border-radius: 0 !important;
+  border-top: 1px solid rgba(250,204,21,.7) !important;
+  border-bottom: 1px solid rgba(250,204,21,.7) !important;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,.025) 0 1px, transparent 1px 8px),
+    linear-gradient(90deg, rgba(2,6,23,.98), rgba(15,23,42,.96), rgba(2,6,23,.98)) !important;
+  box-shadow:
+    0 0 40px rgba(250,204,21,.14),
+    inset 0 0 40px rgba(250,204,21,.08) !important;
+}
+
+.sponsor-led-title {
+  position: relative !important;
+  z-index: 10 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+  padding-left: clamp(18px, 4vw, 48px) !important;
+  margin-bottom: 15px !important;
+  color: #facc15 !important;
+  font-weight: 1000 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1.6px !important;
+  text-shadow: 0 0 16px rgba(250,204,21,.45) !important;
+}
+
+.sponsor-led-window {
+  width: 100vw !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+
+.sponsor-led-window::before,
+.sponsor-led-window::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  width: 120px !important;
+  height: 100% !important;
+  z-index: 20 !important;
+  pointer-events: none !important;
+}
+
+.sponsor-led-window::before {
+  left: 0 !important;
+  background: linear-gradient(90deg, #020617, transparent) !important;
+}
+
+.sponsor-led-window::after {
+  right: 0 !important;
+  background: linear-gradient(270deg, #020617, transparent) !important;
+}
+
+.sponsor-led-track {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: 20px !important;
+  width: max-content !important;
+  min-width: max-content !important;
+  transform: translate3d(0,0,0) !important;
+  animation: sponsorLedInfinite 16s linear infinite !important;
+  will-change: transform !important;
+}
+
+.sponsor-led-card {
+  position: relative !important;
+  flex: 0 0 270px !important;
+  width: 270px !important;
+  min-width: 270px !important;
+  height: 92px !important;
+  padding: 0 18px !important;
+  border-radius: 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  overflow: hidden !important;
+  background:
+    radial-gradient(circle at top, rgba(250,204,21,.18), transparent 45%),
+    linear-gradient(180deg, rgba(15,23,42,.98), rgba(2,6,23,.98)) !important;
+  border: 1px solid rgba(250,204,21,.38) !important;
+  box-shadow:
+    0 0 20px rgba(250,204,21,.12),
+    inset 0 0 20px rgba(255,255,255,.04) !important;
+  animation: sponsorCardLive 3.2s ease-in-out infinite !important;
+}
+
+.sponsor-led-card::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,.18), transparent) !important;
+  transform: translateX(-130%) !important;
+  animation: sponsorCardShine 3.8s ease-in-out infinite !important;
+}
+
+.sponsor-led-logo {
+  position: relative !important;
+  z-index: 2 !important;
+  width: 58px !important;
+  height: 58px !important;
+  min-width: 58px !important;
+  border-radius: 16px !important;
+  display: grid !important;
+  place-items: center !important;
+  overflow: hidden !important;
+  color: #facc15 !important;
+  background: rgba(250,204,21,.13) !important;
+  border: 1px solid rgba(250,204,21,.38) !important;
+}
+
+.sponsor-led-logo img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+}
+
+.sponsor-led-card strong {
+  position: relative !important;
+  z-index: 2 !important;
+  color: #fff !important;
+  font-size: 14px !important;
+  font-weight: 1000 !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  text-shadow: 0 0 12px rgba(255,255,255,.25) !important;
+}
+
+/* CARDS DESTAQUE */
+.sponsors-showcase {
+  position: relative !important;
+  z-index: 5 !important;
+  max-width: 1180px !important;
+  margin: 0 auto !important;
+}
+
+.sponsors-section-title {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  color: #facc15 !important;
+  margin-bottom: 20px !important;
+  text-transform: uppercase !important;
+  text-shadow: 0 0 16px rgba(250,204,21,.35) !important;
+}
+
+.sponsors-section-title h2 {
+  font-size: clamp(24px, 4vw, 34px) !important;
+}
+
+.sponsors-premium-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)) !important;
+  gap: 20px !important;
+}
+
+.sponsor-premium-card {
+  position: relative !important;
+  overflow: hidden !important;
+  min-height: 260px !important;
+  padding: 26px 20px !important;
+  border-radius: 28px !important;
+  text-align: center !important;
+  background:
+    radial-gradient(circle at top, rgba(250,204,21,.13), transparent 42%),
+    rgba(15,23,42,.9) !important;
+  border: 1px solid rgba(255,255,255,.15) !important;
+  box-shadow: 0 18px 55px rgba(0,0,0,.28) !important;
+  animation: sponsorCardEntrance .75s ease both, sponsorPremiumFloat 4.8s ease-in-out infinite !important;
+  transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease !important;
+}
+
+.sponsor-premium-card:hover {
+  transform: translateY(-10px) scale(1.03) !important;
+  border-color: rgba(250,204,21,.8) !important;
+  box-shadow: 0 0 42px rgba(250,204,21,.22) !important;
+}
+
+.sponsor-card-glow {
+  position: absolute !important;
+  inset: -70px !important;
+  background: radial-gradient(circle, rgba(250,204,21,.22), transparent 45%) !important;
+  opacity: .9 !important;
+  animation: sponsorGlowMove 4.2s ease-in-out infinite !important;
+}
+
+.sponsor-premium-logo {
+  position: relative !important;
+  z-index: 2 !important;
+  width: 112px !important;
+  height: 112px !important;
+  margin: 0 auto 18px !important;
+  border-radius: 26px !important;
+  display: grid !important;
+  place-items: center !important;
+  overflow: hidden !important;
+  color: #facc15 !important;
+  background: rgba(250,204,21,.13) !important;
+  border: 1px solid rgba(250,204,21,.42) !important;
+  box-shadow: 0 0 25px rgba(250,204,21,.12) !important;
+  animation: sponsorLogoPulse 2.8s ease-in-out infinite !important;
+}
+
+.sponsor-premium-logo img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+}
+
+.sponsor-premium-card h3 {
+  position: relative !important;
+  z-index: 2 !important;
+  color: white !important;
+  font-size: 22px !important;
+  text-transform: uppercase !important;
+  margin-bottom: 14px !important;
+}
+
+.sponsor-premium-card a {
+  position: relative !important;
+  z-index: 2 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 12px 16px !important;
+  border-radius: 999px !important;
+  background: #facc15 !important;
+  color: #111827 !important;
+  font-weight: 1000 !important;
+  text-transform: uppercase !important;
+  font-size: 12px !important;
+  box-shadow: 0 0 20px rgba(250,204,21,.22) !important;
+  animation: sponsorButtonPulse 2.5s ease-in-out infinite !important;
+}
+
+.sponsors-empty-premium {
+  position: relative !important;
+  z-index: 5 !important;
+  max-width: 680px !important;
+  margin: 35px auto !important;
+  padding: 38px 24px !important;
+  border-radius: 30px !important;
+  text-align: center !important;
+  background: rgba(15,23,42,.9) !important;
+  border: 1px solid rgba(250,204,21,.4) !important;
+  animation: sponsorHeroEnter .8s ease both, sponsorHeroFloat 5s ease-in-out infinite !important;
+}
+
+.sponsors-empty-premium svg {
+  color: #facc15 !important;
+  margin-bottom: 12px !important;
+  animation: sponsorLogoPulse 2.5s ease-in-out infinite !important;
+}
+
+/* KEYFRAMES PATROCINADORES */
+@keyframes sponsorLedInfinite {
+  0% { transform: translate3d(0,0,0) !important; }
+  100% { transform: translate3d(-50%,0,0) !important; }
+}
+
+@keyframes sponsorHeroEnter {
+  from { opacity: 0; transform: translateY(35px) scale(.96); filter: blur(8px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+@keyframes sponsorHeroFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes sponsorHeroShine {
+  0% { transform: translateX(-180%) rotate(22deg); opacity: 0; }
+  25% { opacity: .5; }
+  100% { transform: translateX(420%) rotate(22deg); opacity: 0; }
+}
+
+@keyframes sponsorBadgePulse {
+  0%, 100% { box-shadow: 0 0 16px rgba(250,204,21,.2); transform: scale(1); }
+  50% { box-shadow: 0 0 34px rgba(250,204,21,.45); transform: scale(1.03); }
+}
+
+@keyframes sponsorTitleGlow {
+  0%, 100% { text-shadow: 0 0 18px rgba(255,255,255,.22), 0 0 38px rgba(250,204,21,.3); }
+  50% { text-shadow: 0 0 28px rgba(255,255,255,.45), 0 0 62px rgba(250,204,21,.58); }
+}
+
+@keyframes sponsorCardLive {
+  0%, 100% { transform: translateY(0); box-shadow: 0 0 18px rgba(250,204,21,.12); }
+  50% { transform: translateY(-4px); box-shadow: 0 0 30px rgba(250,204,21,.24); }
+}
+
+@keyframes sponsorCardShine {
+  0% { transform: translateX(-130%); }
+  55% { transform: translateX(130%); }
+  100% { transform: translateX(130%); }
+}
+
+@keyframes sponsorCardEntrance {
+  from { opacity: 0; transform: translateY(24px) scale(.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes sponsorPremiumFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+@keyframes sponsorLogoPulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(250,204,21,.35)); }
+  50% { transform: scale(1.07); filter: drop-shadow(0 0 18px rgba(250,204,21,.75)); }
+}
+
+@keyframes sponsorButtonPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 16px rgba(250,204,21,.2); }
+  50% { transform: scale(1.04); box-shadow: 0 0 30px rgba(250,204,21,.42); }
+}
+
+@media (max-width: 768px) {
+  .sponsors-full-page,
+  .page.sponsors-full-page {
+    padding-top: 145px !important;
+  }
+
+  .sponsor-led-card {
+    flex-basis: 230px !important;
+    width: 230px !important;
+    min-width: 230px !important;
+    height: 82px !important;
+  }
+
+  .sponsor-led-track {
+    gap: 14px !important;
+    animation-duration: 12s !important;
+  }
+
+  .sponsor-led-window::before,
+  .sponsor-led-window::after {
+    width: 55px !important;
+  }
+
+  .sponsors-premium-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
+/* =========================================================
+   HEADER PREMIUM ORGANIZADO + MOBILE PERFEITO
+   Cole no final do App.css ou substitua pelo arquivo gerado.
+   ========================================================= */
+
+.header {
+  position: fixed !important;
+  top: 14px !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+  width: min(1240px, calc(100% - 28px)) !important;
+  min-height: 68px !important;
+  padding: 10px 16px !important;
+  z-index: 9999 !important;
+
+  display: grid !important;
+  grid-template-columns: auto 1fr !important;
+  align-items: center !important;
+  gap: 18px !important;
+
+  border-radius: 24px !important;
+  background: rgba(2, 6, 23, 0.78) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  box-shadow:
+    0 18px 55px rgba(0,0,0,.48),
+    inset 0 0 22px rgba(255,255,255,.04) !important;
+  overflow: hidden !important;
+}
+
+.brand {
+  position: relative !important;
+  z-index: 2 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 12px !important;
+  min-width: max-content !important;
+  color: #facc15 !important;
+  font-size: 15px !important;
+  font-weight: 1000 !important;
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+}
+
+.brand-icon {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  border-radius: 16px !important;
+}
+
+.header-nav,
+.header nav {
+  position: relative !important;
+  z-index: 2 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 8px !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scrollbar-width: none !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+.header-nav::-webkit-scrollbar,
+.header nav::-webkit-scrollbar {
+  display: none !important;
+}
+
+.header-nav a,
+.header nav a {
+  flex: 0 0 auto !important;
+  height: 42px !important;
+  padding: 0 13px !important;
+  border-radius: 14px !important;
+
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 7px !important;
+
+  font-size: 11px !important;
+  font-weight: 1000 !important;
+  line-height: 1 !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+
+  color: #e5e7eb !important;
+  border: 1px solid transparent !important;
+  background: transparent !important;
+}
+
+.header-nav a svg,
+.header nav a svg {
+  width: 15px !important;
+  height: 15px !important;
+  min-width: 15px !important;
+  color: #facc15 !important;
+}
+
+.header-nav a.active,
+.header nav a.active {
+  color: #020617 !important;
+  background: linear-gradient(135deg, #facc15, #eab308) !important;
+  border-color: rgba(250,204,21,.8) !important;
+  box-shadow: 0 0 24px rgba(250,204,21,.34) !important;
+}
+
+.header-nav a.active svg,
+.header nav a.active svg {
+  color: #020617 !important;
+}
+
+.login-btn {
+  color: #dff7ff !important;
+  background: rgba(56,189,248,.14) !important;
+  border: 1px solid rgba(56,189,248,.5) !important;
+}
+
+/* TABLET */
+@media (max-width: 1024px) {
+  .header {
+    width: calc(100% - 18px) !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    padding: 10px !important;
+    border-radius: 22px !important;
+  }
+
+  .brand {
+    justify-content: center !important;
+    width: 100% !important;
+  }
+
+  .header-nav,
+  .header nav {
+    justify-content: flex-start !important;
+    padding: 2px 4px 5px !important;
+  }
+
+  .premium-home,
+  .confronto-page,
+  .teams-page,
+  .classification-page,
+  .scorers-page,
+  .page,
+  .sponsors-full-page,
+  .admin-clean-page {
+    padding-top: 145px !important;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .header {
+    top: 8px !important;
+    width: calc(100% - 12px) !important;
+    min-height: auto !important;
+    padding: 9px !important;
+    border-radius: 20px !important;
+  }
+
+  .brand {
+    font-size: 13px !important;
+    letter-spacing: 1.1px !important;
+    gap: 9px !important;
+  }
+
+  .brand-icon {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    border-radius: 13px !important;
+  }
+
+  .header-nav,
+  .header nav {
+    gap: 7px !important;
+    justify-content: flex-start !important;
+    scroll-snap-type: x mandatory !important;
+  }
+
+  .header-nav a,
+  .header nav a {
+    height: 38px !important;
+    padding: 0 11px !important;
+    font-size: 10px !important;
+    border-radius: 13px !important;
+    background: rgba(15,23,42,.76) !important;
+    border: 1px solid rgba(255,255,255,.10) !important;
+    scroll-snap-align: start !important;
+  }
+
+  .header-nav a svg,
+  .header nav a svg {
+    width: 14px !important;
+    height: 14px !important;
+    min-width: 14px !important;
+  }
+
+  .premium-home,
+  .confronto-page,
+  .teams-page,
+  .classification-page,
+  .scorers-page,
+  .page,
+  .sponsors-full-page,
+  .admin-clean-page {
+    padding-top: 142px !important;
+  }
+}
+
+/* CELULAR MUITO PEQUENO */
+@media (max-width: 430px) {
+  .header {
+    width: calc(100% - 10px) !important;
+    padding: 8px !important;
+  }
+
+  .brand {
+    font-size: 12px !important;
+  }
+
+  .brand-icon {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+  }
+
+  .header-nav a,
+  .header nav a {
+    height: 36px !important;
+    padding: 0 10px !important;
+    font-size: 9.5px !important;
+  }
+}

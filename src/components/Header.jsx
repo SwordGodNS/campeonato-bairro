@@ -1,5 +1,14 @@
 import { Link, NavLink } from "react-router-dom";
-import { Trophy, Shield, Swords, Users, Medal, Target, LayoutDashboard } from "lucide-react";
+import {
+  Trophy,
+  Shield,
+  Swords,
+  Users,
+  Medal,
+  Target,
+  LayoutDashboard,
+  Handshake,
+} from "lucide-react";
 
 export default function Header() {
   const links = [
@@ -8,6 +17,8 @@ export default function Header() {
     { to: "/times", label: "Times", icon: Users },
     { to: "/classificacao", label: "Classificação", icon: Medal },
     { to: "/artilharia", label: "Artilharia", icon: Target },
+    { to: "/patrocinadores", label: "Patrocínios", icon: Handshake },
+    { to: "/login", label: "Painel", icon: LayoutDashboard, painel: true },
   ];
 
   return (
@@ -20,17 +31,17 @@ export default function Header() {
       </Link>
 
       <nav className="header-nav">
-        {links.map(({ to, label, icon: Icon }) => (
-          <NavLink key={to} to={to} end={to === "/"}>
+        {links.map(({ to, label, icon: Icon, painel }) => (
+          <NavLink
+            key={to}
+            to={to}
+            end={to === "/"}
+            className={painel ? "login-btn" : ""}
+          >
             <Icon size={15} />
             <span>{label}</span>
           </NavLink>
         ))}
-
-        <NavLink to="/login" className="login-btn">
-          <LayoutDashboard size={15} />
-          <span>Painel</span>
-        </NavLink>
       </nav>
     </header>
   );
